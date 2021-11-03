@@ -38,6 +38,24 @@ Route::middleware('auth')
         Route::get('/surat/form-ajukan-surat', [SuratController::class, 'create'])->name('surat.create');
 
         Route::get('/surat/form-ajukan-surat/ajukan-surat', [SuratController::class, 'store'])->name('surat.store');
+
+        Route::get('/cetak-surat', [SuratController::class, 'cetak_surat'])->name('surat.cetak');
+    });
+
+Route::middleware('laboran')
+    ->prefix('laboran')
+    ->group(function() {
+        Route::get('/surat', [SuratController::class, 'index_laboran'])->name('laboran.surat.index');
+
+        Route::put('/surat/proses-surat-{id}', [SuratController::class, 'teruskan_surat'])->name('laboran.surat.teruskan');
+    });
+
+Route::middleware('ka_lab')
+    ->prefix('kepala-lab')
+    ->group(function() {
+        Route::get('/surat', [SuratController::class, 'index_ka_lab'])->name('ka_lab.surat.index');
+
+        Route::put('/surat/terima-surat-{id}', [SuratController::class, 'terima_surat'])->name('ka_lab.surat.terima');
     });
 
 require __DIR__.'/auth.php';

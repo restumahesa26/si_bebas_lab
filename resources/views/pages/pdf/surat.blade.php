@@ -79,7 +79,7 @@ p, span {
                 <span>Nama</span>
             </div>
             <div class="col-6">
-                <span>: Mufti Restu Mahesa</span>
+                <span>: {{ $surat->user->nama }}</span>
             </div>
         </div>
         <div class="row mt-2">
@@ -87,7 +87,7 @@ p, span {
                 <span>NPM</span>
             </div>
             <div class="col-6">
-                <span>: G1A019014</span>
+                <span>: {{ $surat->user->npm }}</span>
             </div>
         </div>
         <div class="row mt-2">
@@ -105,7 +105,7 @@ p, span {
                 <p>Bengkulu, 20 Oktober 2021</p>
                 <p>Mengetahui</p>
                 <div class="my-2">
-                    {!! QrCode::generate($item); !!}
+                    {!! QrCode::generate($surat->id); !!}
                 </div>
                 <p>Desi Andreswari</p>
             </div>

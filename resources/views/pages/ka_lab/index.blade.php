@@ -10,7 +10,6 @@
 </div>
 
 <div class="row mb-3 text-center justify-content-center">
-    @if ($surat)
     <div class="card col-12">
         <div class="card-body">
             <div class="table-responsive">
@@ -27,31 +26,33 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse ($surat as $item)
                         <tr>
-                            <td>{{ $surat->user->nama }}</td>
-                            <td>{{ $surat->user->npm }}</td>
-                            <td>{{ $surat->tanggal_ajuan }}</td>
-                            <td>{{ $surat->tanggal_proses }}</td>
-                            <td>{{ $surat->tanggal_selesai }}</td>
-                            <td>{{ $surat->status }}</td>
+                            <td>{{ $item->user->nama }}</td>
+                            <td>{{ $item->user->npm }}</td>
+                            <td>{{ $item->tanggal_ajuan }}</td>
+                            <td>{{ $item->tanggal_proses }}</td>
+                            <td>{{ $item->tanggal_selesai }}</td>
+                            <td>{{ $item->status }}</td>
                             <td>
-                                <a href="{{ route('surat.cetak') }}" class="btn btn-info" target="_blank">Cetak Surat</a>
+                                <form action="{{ route('ka_lab.surat.terima', $item->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-primary">Terima</button>
+                                </form>
                             </td>
                         </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7">--Data Kosong--</td>
+                        </tr>
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    @else
-    <div class="card col-9">
-        <div class="card-body">
-            <h5>Belum Mengajukan Surat</h5>
-            <a href="{{ route('surat.create') }}" class="btn btn-primary mt-1">Ajukan Surat</a>
-        </div>
-    </div>
-    @endif
-
 </div>
 <!--Row-->
 
